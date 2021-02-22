@@ -1,5 +1,6 @@
 import vkbottle.bot as bot
 from vkbottle.bot import Message
+import asyncio
 
 
 class Bot:
@@ -10,5 +11,5 @@ class Bot:
         async def any_message(message: Message):
             await message.answer("something")
 
-        self.bot.run_polling()
+        asyncio.run(self.bot.run_polling())
 
