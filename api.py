@@ -1,6 +1,5 @@
 from models.change import Change
 from models.consultation import Consultation
-from enums import request_types
 import json
 
 import requests
