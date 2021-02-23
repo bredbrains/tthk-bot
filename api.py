@@ -7,7 +7,7 @@ import requests
 
 class API:
     def __init__(self):
-        self.api_url = "http://95.181.152.89/api/"
+        self.api_url = "http://bredbrains.tech/api/"
 
     def get_changes(self):
         r = requests.get(self.api_url + 'changes')
