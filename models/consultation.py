@@ -1,9 +1,9 @@
 class ConsultationTemplate:
     @staticmethod
     def convert(consultation):
-        return f"Учитель {consultation.teacher} \nКабинет: {consultation.room}\nПочта: {consultation.email}" \
+        return f"👨‍🏫 Учитель {consultation.teacher} \nКабинет: {consultation.room}\n✉ Почта: {consultation.email}" \
                f"\nОтрасль: {consultation.department} " \
-               f"\nДень недели: {consultation.weekday}\n Время: {consultation.time}\n"
+               f"\n🗓 День недели: {consultation.weekday}\n⏰ Время: {consultation.time}\n"
 
 
 class TeacherSearchingTemplate:
