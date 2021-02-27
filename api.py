@@ -34,5 +34,14 @@ class API:
         return None
 
     def get_consultations(self):
-        r = requests.get(self.api_url + 'consultations').json
-        return r.json
+        r = requests.get(self.api_url + 'consultations')
+        consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
+        consultations = []
+        for item in consultations_json:
+            for temporal in item["times"]:
+                consultation = Consultation(item["teacher"], item["room"], item["email"], item["department"],
+                                            item["times"], temporal["weekday"], temporal["time"])
+            consultations.append(consultation.get_str())
+        if consultations:
+            return '\n'.join(consultations)
+        return None
