@@ -15,14 +15,36 @@ class ChangeTemplate:
         change.type = change.get_type()
         change_date = ""
         if change.type == ChangeTypes.Removed:
-            return change_date + f"🗓 {change.dayofweek} Дата: {change.date}\n🦆 Группа: {change.group} ⏰ Урок: {change.lessons} \n❌ Не состоится\n"
+            return change_date + f"🗓 {change.dayofweek} " \
+                                 f"Дата: {change.date}\n" \
+                                 f"🦆 Группа: {change.group} " \
+                                 f"⏰ Урок: {change.lessons}\n" \
+                                 f"❌ Не состоится\n"
         elif change.type == ChangeTypes.IndependentWorkAtHome:
-            return change_date + f"🗓 {change.dayofweek} Дата: {change.date}\n🦆 Группа: {change.group} ⏰ Урок: {change.lessons} \n🏠 Самостоятельная работа дома\n"
+            return change_date + f"🗓 {change.dayofweek} " \
+                                 f"Дата: {change.date}\n" \
+                                 f"🦆 Группа: {change.group} " \
+                                 f"⏰ Урок: {change.lessons}\n" \
+                                 f"🏠 Самостоятельная работа дома\n"
         elif change.type == ChangeTypes.IndependentWork:
-            return change_date + f"🗓 {change.dayofweek} Дата: {change.date}\n🦆 Группа: {change.group} ⏰ Урок: {change.lessons} \n👨‍🏫 Преподаватель: {change.teacher}\nКабинет: {change.room}\n"
+            return change_date + f"🗓 {change.dayofweek} " \
+                                 f"Дата: {change.date}\n" \
+                                 f"🦆 Группа: {change.group} " \
+                                 f"⏰ Урок: {change.lessons}\n" \
+                                 f"👨‍🏫 Преподаватель: {change.teacher}\n" \
+                                 f"Кабинет: {change.room}\n"
         elif change.type == ChangeTypes.Lunch:
-            return change_date + f"🗓 {change.dayofweek} Дата: {change.date}\n🦆 Группа: {change.group} ⏰ Урок: {change.lessons} \n🆒 Обеденный перерыв\n"
-        return change_date + f"🗓 {change.dayofweek} Дата: {change.date}\n🦆 Группа: {change.group} ⏰ Урок: {change.lessons} \n👨‍🏫 Преподаватель: {change.teacher}\nКабинет: {change.room}\n"
+            return change_date + f"🗓 {change.dayofweek} " \
+                                 f"Дата: {change.date}\n" \
+                                 f"🦆 Группа: {change.group} " \
+                                 f"⏰ Урок: {change.lessons}\n" \
+                                 f"🆒 Обеденный перерыв\n"
+        return change_date + f"🗓 {change.dayofweek} " \
+                             f"Дата: {change.date}\
+                             🦆 Группа: {change.group} " \
+                             f"⏰ Урок: {change.lessons}\n" \
+                             f"👨‍🏫 Преподаватель: {change.teacher}\n" \
+                             f"Кабинет: {change.room}\n"
 
 
 class Change:

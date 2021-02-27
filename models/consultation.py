@@ -6,6 +6,12 @@ class ConsultationTemplate:
                f"\nДень недели: {consultation.weekday}\n Время: {consultation.time}\n"
 
 
+class TeacherSearchingTemplate:
+    @staticmethod
+    def convert(consultation):
+        return f"{consultation.teacher}"
+
+
 class Consultation:
     def __init__(self, teacher, room, email, department, times, weekday, time):
         self.teacher = teacher
@@ -18,3 +24,6 @@ class Consultation:
 
     def get_str(self) -> str:
         return ConsultationTemplate.convert(self)
+
+    def get_teachers(self) -> str:
+        return TeacherSearchingTemplate.convert(self)
