@@ -12,10 +12,9 @@ class Bot:
 
         self.keyboard = Keyboard(one_time=False, inline=False) \
             .add(Text("изменения в расписании"), color=KeyboardButtonColor.POSITIVE) \
-            .add(Text("консультации"), color=KeyboardButtonColor.POSITIVE) \
+            .add(Text("список команд"), color=KeyboardButtonColor.POSITIVE) \
             .row() \
             .add(Text("список учителей"), color=KeyboardButtonColor.POSITIVE) \
-            .add(Text("список команд"), color=KeyboardButtonColor.POSITIVE) \
             .row() \
             .add(Text("убрать клавиатуру"), color=KeyboardButtonColor.NEGATIVE) \
             .get_json()
@@ -23,7 +22,13 @@ class Bot:
         self.clearboard = Keyboard(one_time=True, inline=False) \
             .get_json()
 
-        @self.bot.on.chat_message(text=[])
+        @self.bot.on.chat_message(text=["-thk?изменения в расписании для <group>",
+                                        "-thk?изменения для <group>",
+                                        "-thk?замены для <group>",
+                                        "-thk?замены у <group>" 
+                                        "-thk?замены",
+                                        "-thk?изменения в расписании",
+                                        "-thk?изменения"])
         @self.bot.on.private_message(text=["изменения в расписании для <group>",
                                            "изменения для <group>",
                                            "замены для <group>",
@@ -32,6 +37,7 @@ class Bot:
                                            "изменения в расписании",
                                            "изменения"])
         async def any_message(message: Message, group: Optional[str] = None):
+            await message.answer("подождите пожалуйста пару секунд...")
             if group is not None:
                 changes = self.api.get_changes_by_group(group)
             else:
@@ -46,10 +52,12 @@ class Bot:
             else:
                 await message.answer("изменений в расписании нет.")
 
-        @self.bot.on.chat_message(text=[])
+        @self.bot.on.chat_message(text=["-thk?консультации у <teacher>",
+                                        "-thk?консультации"])
         @self.bot.on.private_message(text=["консультации у <teacher>",
                                            "консультации"])
         async def any_message(message: Message, teacher: Optional[str] = None):
+            await message.answer("подождите пожалуйста 5 секунд...")
             if teacher is not None:
                 consultation = self.api.get_consultations_by_teacher(teacher)
             else:
@@ -64,13 +72,18 @@ class Bot:
             else:
                 await message.answer("нет данных о консультациях.")
 
-        @self.bot.on.chat_message(text=[])
+        @self.bot.on.chat_message(text=["-thk?список учителей",
+                                        "-thk?учителя",
+                                        "-thk?поиск учителя <teacher>",
+                                        "-thk?поиск <teacher>",
+                                        "-thk?учитель <teacher>"])
         @self.bot.on.private_message(text=["список учителей",
                                            "учителя",
                                            "поиск учителя <teacher>",
                                            "поиск <teacher>",
                                            "учитель <teacher>"])
         async def any_message(message: Message, teacher: Optional[str] = None):
+            await message.answer("подождите пожалуйста 5 секунд...")
             if teacher is not None:
                 search = self.api.search_teacher_by_name(teacher)
             else:
@@ -85,11 +98,15 @@ class Bot:
             else:
                 await message.answer("нет данных об учителях.")
 
-        @self.bot.on.chat_message(text=[])
+        @self.bot.on.chat_message(text=["-thk?список команд",
+                                        "-thk?команды"])
         @self.bot.on.private_message(text=["список команд",
                                            "команды"])
         async def wrapper(message: Message):
-            await message.answer('Пишем группы и учителей без <> **\n\n'
+            await message.answer("подождите пожалуйста пару секунд...")
+            await message.answer('Пишем группы и учителей без <> **\n'
+                                 'Для групповых чатов перед коммандой пишем -thk?, \n'
+                                 'пример: -thk?изменения в расписании **\n\n'
                                  'Изменения в расписании *\n'
                                  'изменения в расписании для <группа>, \n'
                                  'изменения для <группа>, \n'
