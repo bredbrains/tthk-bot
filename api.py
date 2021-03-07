@@ -19,7 +19,10 @@ class API:
 
     def get_changes(self):
         r = requests.get(self.api_url + 'changes')
-        changes_json = eval(json.dumps(r.json()))["data"]
+        try:
+            changes_json = eval(json.dumps(r.json()))["data"]
+        except:
+            return None
         changes = []
         for item in changes_json:
             change = Change(item["dayofweek"], item["date"], item["group"], item["lessons"], item["teacher"],
@@ -31,7 +34,10 @@ class API:
 
     def get_changes_by_group(self, group):
         r = requests.get(self.api_url + 'changes')
-        changes_json = eval(json.dumps(r.json()))["data"]
+        try:
+            changes_json = eval(json.dumps(r.json()))["data"]
+        except:
+            return None
         changes = []
         for item in changes_json:
             change = Change(item["dayofweek"], item["date"], item["group"], item["lessons"], item["teacher"],
@@ -48,7 +54,10 @@ class API:
 
     def get_consultations(self):
         r = requests.get(self.api_url + 'consultations')
-        consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
+        try:
+            consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
+        except:
+            return None
         consultations = []
         for item in consultations_json:
             for temporal in item["times"]:
@@ -61,7 +70,10 @@ class API:
 
     def get_consultations_by_teacher(self, teacher):
         r = requests.get(self.api_url + 'consultations')
-        consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
+        try:
+            consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
+        except:
+            return None
         consultations = []
         for item in consultations_json:
             for temporal in item["times"]:
@@ -75,7 +87,10 @@ class API:
 
     def get_consultations_by_department(self, department):
         r = requests.get(self.api_url + 'consultations?department='+department)
-        consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
+        try:
+            consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
+        except:
+            return None
         consultations = []
         for item in consultations_json:
             for temporal in item["times"]:
@@ -92,7 +107,10 @@ class API:
 
     def search_teachers(self):
         r = requests.get(self.api_url + 'consultations')
-        consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
+        try:
+            consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
+        except:
+            return None
         consultations = []
         for item in consultations_json:
             for temporal in item["times"]:
@@ -105,7 +123,10 @@ class API:
 
     def search_teacher_by_name(self, name):
         r = requests.get(self.api_url + 'consultations')
-        consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
+        try:
+            consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
+        except:
+            return None
         consultations = []
         for item in consultations_json:
             for temporal in item["times"]:
