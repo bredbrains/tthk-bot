@@ -23,7 +23,7 @@ class Database:
             db=connection_data.db
         )
 
-    def call_cursor(self):
+    def cursor(self):
         return self.connection.cursor()
 
 
