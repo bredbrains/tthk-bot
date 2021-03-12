@@ -18,7 +18,20 @@ class Bot:
         self.clearboard = Keyboard(one_time=True, inline=False) \
             .get_json()
 
-        @self.bot.on.private_message(text=[])
+        @self.bot.on.chat_message(text=["-thk?изменения в расписании для <group>",
+                                        "-thk?изменения для <group>",
+                                        "-thk?замены для <group>",
+                                        "-thk?замены у <group>" 
+                                        "-thk?замены",
+                                        "-thk?изменения в расписании",
+                                        "-thk?изменения"])
+        @self.bot.on.private_message(text=["изменения в расписании для <group>",
+                                           "изменения для <group>",
+                                           "замены для <group>",
+                                           "замены у <group>" 
+                                           "замены",
+                                           "изменения в расписании",
+                                           "изменения"])
         async def any_message(message: Message, group: Optional[str] = None):
             await message.answer("подождите пожалуйста пару секунд...")
             if group is not None:
@@ -35,7 +48,11 @@ class Bot:
             else:
                 await message.answer("изменений в расписании нет.")
 
-        @self.bot.on.private_message(text=["консультации у <teacher>"])
+
+        @self.bot.on.chat_message(text=["-thk?консультации у <teacher>",
+                                        "-thk?консультации"])
+        @self.bot.on.private_message(text=["консультации у <teacher>",
+                                           "консультации"])
         async def any_message(message: Message, teacher: Optional[str] = None):
             await message.answer("подождите пожалуйста 5 секунд...")
             if teacher is not None:
@@ -52,7 +69,13 @@ class Bot:
             else:
                 await message.answer("нет данных о консультациях.")
 
-        @self.bot.on.private_message(text=["привет"])
+
+        @self.bot.on.chat_message(text=[])
+        @self.bot.on.private_message(text=["привет",
+                                           "хай",
+                                           "здравствуй",
+                                           "клавиатура",
+                                           "клава"])
         async def wrapper(message: Message):
             await message.answer('х', keyboard=self.keyboard)
 

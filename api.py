@@ -1,8 +1,9 @@
-from models.change import Change
-from models.consultation import Consultation
 import json
 
 import requests
+
+from models.change import Change
+
 
 class API:
     def __init__(self):

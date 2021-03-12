@@ -1,6 +1,5 @@
 class User:
-    def __init__(self, id, vkid, group, sender_status):
-        self.id = id
+    def __init__(self, vkid, group, sender_status=False):
         self.vkid = vkid
         self.group = group
         self.sender_status = sender_status
