@@ -45,10 +45,12 @@ class UserRequest:
             users.append(User(user[0], user[1], user[2]))
         return users
 
-# DEBUG ONLY
-if __name__ == "__main__":
-    userRequest = UserRequest()
-    users = userRequest.get_all_users()
-    for user in users:
-        print(user.group)
-    me = userRequest.get_user(328862061)
+    def add_user(self, user: User):
+        self.cursor.execute(
+            f"INSERT INTO users(vkid, thkruhm, sendStatus) VALUES ({user.vkid}, {user.group}, {user.sender_status})")
+        self.database.connection.commit()
+
+    def update_user(self, user: User):
+        self.cursor.execute(
+            f"UPDATE users SET thkruhm = {user.group}, sendStatus = {user.sender_status} WHERE vkid = {user.vkid}")
+        self.database.connection.commit()
