@@ -4,19 +4,22 @@ import os
 from models.user import User
 
 
+class Connection(pymysql.connections.Connection):
+    def __init__(self):
+        self.host = os.environ["mysql_host"]
+        self.user = os.environ["mysql_user"]
+        self.password = os.environ["mysql_password"]
+        self.db = os.environ["mysql_db"]
+
+
 class Database:
     def __init__(self):
-        self.mysql_connection = {
-            "host": os.environ["mysql_host"],
-            "user": os.environ["mysql_user"],
-            "password": os.environ["mysql_password"],
-            "database": os.environ["mysql_db"]
-        }
+        connection_data = Connection()
         self.connection = pymysql.connect(
-            host=self.mysql_connection["host"],
-            user=self.mysql_connection["user"],
-            password=self.mysql_connection["password"],
-
+            host=connection_data.host,
+            user=connection_data.user,
+            password=connection_data.password,
+            db=connection_data.db
         )
 
     def call_cursor(self):
@@ -39,5 +42,5 @@ class UserRequest:
         self.cursor.execute("""SELECT vkid, thkruhm, sendStatus FROM users;""")
         response = self.cursor.fetchall()
         for user in response:
-            users.append(User(user["vkid"], user["thkruhm"], user["sendStatus"]))
+            users.append(User(user[0], user[1], user[2]))
         return users
