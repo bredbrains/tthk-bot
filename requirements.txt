@@ -1,2 +1,3 @@
-vkbottle
+https://github.com/timoniq/vkbottle/archive/master.zip
 pymysql
+requests
