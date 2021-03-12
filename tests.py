@@ -1,4 +1,5 @@
 import unittest
+from api import API
 
 
 class MyTestCase(unittest.TestCase):

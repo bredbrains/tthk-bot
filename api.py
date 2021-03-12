@@ -9,7 +9,7 @@ class API:
         self.api_url = "https://bredbrains.tech/api/"
 
     def get_changes(self):
-        r = requests.get(self.api_url + 'changes')
+        r = requests.get(self.api_url + 'changes', verify=False)
         changes_json = eval(json.dumps(r.json()))["data"]
         changes = []
         for item in changes_json:
@@ -21,7 +21,7 @@ class API:
         return None
 
     def get_changes_by_group(self, group):
-        r = requests.get(self.api_url + 'changes')
+        r = requests.get(self.api_url + 'changes', verify=False)
         changes_json = eval(json.dumps(r.json()))["data"]
         changes = []
         for item in changes_json:
@@ -34,5 +34,5 @@ class API:
         return None
 
     def get_consultations(self):
-        r = requests.get(self.api_url + 'consultations').json
+        r = requests.get(self.api_url + 'consultations', verify=False).json
         return r.json
