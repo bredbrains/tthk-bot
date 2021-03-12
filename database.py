@@ -23,7 +23,7 @@ class Database:
         return self.connection.cursor()
 
 
-class UserRequest(User):
+class UserRequest:
     def __init__(self):
         self.database = Database()
         self.cursor = self.database.call_cursor()
