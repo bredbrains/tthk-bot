@@ -78,7 +78,7 @@ class Bot:
                 try:
                     await message.answer(consultation)
                 except:
-                    await message.answer(consultation[:900])
+                    await message.answer(consultation[:800] + "\n\nсоветую смотреть консультации у конкретного учителя.")
             elif teacher:
                 await message.answer("нет такого учителя, которого вы указали.")
             else:
