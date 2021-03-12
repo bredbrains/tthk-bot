@@ -31,10 +31,10 @@ class UserRequest:
         self.database = Database()
         self.cursor = self.database.call_cursor()
 
-    def get_user(self, id) -> User:
+    def get_user(self, id: int) -> User:
         self.cursor.execute(f"""SELECT vkid, thkruhm, sendStatus FROM users WHERE vkid={id};""")
         response = self.cursor.fetchone()
-        user = User(response["vkid"], response["thkruhm"], response["sendStatus"])
+        user = User(response[0], response[1], response[2])
         return user
 
     def get_all_users(self) -> list:
@@ -44,3 +44,11 @@ class UserRequest:
         for user in response:
             users.append(User(user[0], user[1], user[2]))
         return users
+
+# DEBUG ONLY
+if __name__ == "__main__":
+    userRequest = UserRequest()
+    users = userRequest.get_all_users()
+    for user in users:
+        print(user.group)
+    me = userRequest.get_user(328862061)
