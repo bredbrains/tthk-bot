@@ -1,5 +1,6 @@
-import pymysql
 import os
+
+import pymysql
 
 from models.user import User
 
