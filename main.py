@@ -1,5 +1,6 @@
-from bot import Bot
 import os
+
+from bot import Bot
 
 token = os.environ["token"]
 

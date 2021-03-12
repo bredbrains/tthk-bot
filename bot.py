@@ -1,9 +1,12 @@
-import vkbottle.bot as bot
-from vkbottle.bot import Message
-from vkbottle import Keyboard, Text, KeyboardButtonColor
 import asyncio
-from api import API
 from typing import Optional
+
+import vkbottle.bot as bot
+from vkbottle import Keyboard, Text, KeyboardButtonColor
+from vkbottle.bot import Message
+
+from api import API
+
 
 class Bot:
     def __init__(self, token):
@@ -24,14 +27,14 @@ class Bot:
         @self.bot.on.chat_message(text=["-thk?изменения в расписании для <group>",
                                         "-thk?изменения для <group>",
                                         "-thk?замены для <group>",
-                                        "-thk?замены у <group>" 
+                                        "-thk?замены у <group>"
                                         "-thk?замены",
                                         "-thk?изменения в расписании",
                                         "-thk?изменения"])
         @self.bot.on.private_message(text=["изменения в расписании для <group>",
                                            "изменения для <group>",
                                            "замены для <group>",
-                                           "замены у <group>" 
+                                           "замены у <group>"
                                            "замены",
                                            "изменения в расписании",
                                            "изменения"])
@@ -51,7 +54,6 @@ class Bot:
             else:
                 await message.answer("изменений в расписании нет.")
 
-
         @self.bot.on.chat_message(text=["-thk?консультации у <teacher>",
                                         "-thk?консультации"])
         @self.bot.on.private_message(text=["консультации у <teacher>",
@@ -66,12 +68,12 @@ class Bot:
                 try:
                     await message.answer(consultation)
                 except:
-                    await message.answer(consultation[:800] + "\n\nсоветую смотреть консультации у конкретного учителя.")
+                    await message.answer(
+                        consultation[:800] + "\n\nсоветую смотреть консультации у конкретного учителя.")
             elif teacher:
                 await message.answer("нет такого учителя, которого вы указали.")
             else:
                 await message.answer("нет данных о консультациях.")
-
 
         @self.bot.on.chat_message(text=[])
         @self.bot.on.private_message(text=["привет",
@@ -83,4 +85,3 @@ class Bot:
             await message.answer('х', keyboard=self.keyboard)
 
         asyncio.run(self.bot.run_polling())
-
