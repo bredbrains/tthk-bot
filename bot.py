@@ -3,6 +3,7 @@ from vkbottle.bot import Message
 import asyncio
 from keyboards import Keyboards
 from api import API
+from typing import Optional
 
 
 class Bot:
@@ -44,6 +45,29 @@ class Bot:
                 await message.answer("Для группы, которую вы указали изменений в расписании нет.")
             else:
                 await message.answer("Изменений в расписании нет.")
+
+        @self.bot.on.private_message(text=["Консультации"])
+        async def any_message(message: Message, teacher: Optional[str] = None):
+            consultation = None
+            await message.answer("Подождите пожалуйста 5 секунд...")
+            if teacher is not None:
+                try:
+                    consultation = self.api.get_consultations_by_teacher(teacher)
+                except:
+                    await message.answer("Похоже на то, что сайт TTHK временно не функционирует,\n"
+                                         "либо был изменен и на данный момент не поддерживается.")
+            else:
+                try:
+                    consultation = self.api.get_consultations_by_teacher(teacher)
+                except:
+                    await message.answer("Похоже на то, что сайт TTHK временно не функционирует,\n"
+                                         "либо был изменен и на данный момент не поддерживается.")
+            if consultation:
+                await message.answer(consultation)
+            elif teacher:
+                await message.answer("Нет такого учителя, которого вы указали.")
+            else:
+                await message.answer("Нет данных о консультациях.")
 
         @self.bot.on.private_message(text=["Выбрать группу"])
         async def any_message(message: Message):
