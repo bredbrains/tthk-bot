@@ -12,6 +12,12 @@ class TeacherSearchingTemplate:
         return f"{consultation.teacher}"
 
 
+class DepartmentSearchingTemplate:
+    @staticmethod
+    def convert(consultation):
+        return f"{consultation.department}"
+
+
 class Consultation:
     def __init__(self, teacher, room, email, department, times, weekday, time):
         self.teacher = teacher
@@ -25,5 +31,8 @@ class Consultation:
     def get_str(self) -> str:
         return ConsultationTemplate.convert(self)
 
-    def get_teachers(self) -> str:
+    def get_teacher(self) -> str:
+        return TeacherSearchingTemplate.convert(self)
+
+    def get_department(self) -> str:
         return TeacherSearchingTemplate.convert(self)
