@@ -13,7 +13,7 @@ class UsersKeyboard:
         self.group = None
         self.row_empty = None
 
-    def get_main_keyboard(self):
+    def get_main(self):
         self.keyboard = Keyboard(one_time=False) \
             .add(Text("Изменения в расписании"), color=KeyboardButtonColor.POSITIVE) \
             .row() \
@@ -21,7 +21,7 @@ class UsersKeyboard:
             .get_json()
         return self.keyboard
 
-    def get_consultation_keyboard(self):
+    def get_consultation(self):
         self.keyboard = Keyboard(one_time=False) \
             .add(Text("Мой список"), color=KeyboardButtonColor.PRIMARY) \
             .add(Text("Учителя по отрослям"), color=KeyboardButtonColor.PRIMARY) \
@@ -33,7 +33,7 @@ class UsersKeyboard:
             .get_json()
         return self.keyboard
 
-    def get_group_keyboard(self):
+    def get_group(self):
         self.keyboard = Keyboard(one_time=False) \
             .add(Text("Моя группа"), color=KeyboardButtonColor.PRIMARY) \
             .add(Text("Все группы"), color=KeyboardButtonColor.PRIMARY) \
@@ -44,7 +44,7 @@ class UsersKeyboard:
             .get_json()
         return self.keyboard
 
-    def get_group_professions_keyboard(self):
+    def get_group_professions(self):
         self.keyboard = Keyboard(one_time=False)
         tick = 0
         for el in Group.get_professions():
@@ -59,7 +59,7 @@ class UsersKeyboard:
         self.keyboard.add(Text("Назад"), color=KeyboardButtonColor.NEGATIVE)
         return self.keyboard.get_json()
 
-    def get_group_graduation_keyboard(self):
+    def get_group_graduation(self):
         self.keyboard = Keyboard(one_time=False)
         tick = 0
         for el in Group.get_graduations():
@@ -74,7 +74,7 @@ class UsersKeyboard:
         self.keyboard.add(Text("Назад"), color=KeyboardButtonColor.NEGATIVE)
         return self.keyboard.get_json()
 
-    def get_group_years_keyboard(self):
+    def get_group_years(self):
         self.keyboard = Keyboard(one_time=False)
         tick = 0
         for el in Group.get_years():
@@ -89,7 +89,7 @@ class UsersKeyboard:
         self.keyboard.add(Text("Назад"), color=KeyboardButtonColor.NEGATIVE)
         return self.keyboard.get_json()
 
-    def get_group_number_keyboard(self):
+    def get_group_number(self):
         self.keyboard = Keyboard(one_time=False)
         tick = 0
         for el in Group.get_numbers():
