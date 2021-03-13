@@ -19,7 +19,7 @@ class Bot:
 
         @self.bot.on.private_message(text=["Изменения в расписании"])
         async def any_message(message: Message):
-            await message.answer('Изменения в расписании', keyboard=self.keyboard.get_group_keyboard())
+            await message.answer('Изменения в расписании', keyboard=self.keyboard.get_group())
 
         @self.bot.on.private_message(text=["Все группы",
                                            "Моя группа"])
@@ -76,47 +76,47 @@ class Bot:
         async def any_message(message: Message):
             self.group_choosing = True
             await message.answer('Выберите аббревиатуру Вашей группы',
-                                 keyboard=self.keyboard.get_group_professions_keyboard())
+                                 keyboard=self.keyboard.get_group_professions())
 
         @self.bot.on.private_message(text=Group.get_professions())
         async def any_message(message: Message):
             if self.group_choosing:
                 await message.answer('Выберите градацию Вашей группы',
-                                     keyboard=self.keyboard.get_group_graduation_keyboard())
+                                     keyboard=self.keyboard.get_group_graduation())
 
         @self.bot.on.private_message(text=Group.get_graduations())
         async def any_message(message: Message):
             if self.group_choosing:
                 await message.answer('Выберите год Вашей группы',
-                                     keyboard=self.keyboard.get_group_years_keyboard())
+                                     keyboard=self.keyboard.get_group_years())
 
         @self.bot.on.private_message(text=Group.get_years())
         async def any_message(message: Message):
             if self.group_choosing:
                 await message.answer('Выберите номер Вашей группы',
-                                     keyboard=self.keyboard.get_group_number_keyboard())
+                                     keyboard=self.keyboard.get_group_number())
 
         @self.bot.on.private_message(text=Group.get_numbers())
         async def any_message(message: Message):
             if self.group_choosing:
                 await message.answer('Ваша группа',
-                                     keyboard=self.keyboard.get_group_keyboard())
+                                     keyboard=self.keyboard.get_group())
 
         @self.bot.on.private_message(text=["Консультации"])
         async def any_message(message: Message):
-            await message.answer('Консультации', keyboard=self.keyboard.get_consultation_keyboard())
+            await message.answer('Консультации', keyboard=self.keyboard.get_consultation())
 
         @self.bot.on.private_message(text=["Консультации"])
         async def any_message(message: Message):
-            await message.answer('Консультации', keyboard=self.keyboard.get_consultation_keyboard())
+            await message.answer('Консультации', keyboard=self.keyboard.get_consultation())
 
         @self.bot.on.private_message(text=["Назад"])
         async def any_message(message: Message):
-            await message.answer('Назад', keyboard=self.keyboard.get_main_keyboard())
+            await message.answer('Назад', keyboard=self.keyboard.get_main())
 
         @self.bot.on.private_message(text=["Начать",
                                            "Start"])
         async def wrapper(message: Message):
-            await message.answer('Ваша клавиатура', keyboard=self.keyboard.get_main_keyboard())
+            await message.answer('Ваша клавиатура', keyboard=self.keyboard.get_main())
 
         asyncio.run(self.bot.run_polling())
