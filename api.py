@@ -3,6 +3,7 @@ import json
 import requests
 
 from models.change import Change
+from models.consultation import Consultation
 
 
 class API:
@@ -18,7 +19,7 @@ class API:
                             item["room"])
             changes.append(change.get_str())
         if changes:
-            return '\n'.join(changes)
+            return changes
         return None
 
     def get_changes_by_group(self, group):
@@ -31,9 +32,71 @@ class API:
             if group in change.group:
                 changes.append(change)
         if changes:
-            return '\n'.join(changes)
+            return changes
         return None
 
     def get_consultations(self):
-        r = requests.get(self.api_url + 'consultations', verify=False).json
-        return r.json
+        r = requests.get(self.api_url + 'consultations', verify=False)
+        consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
+        consultations = []
+        for item in consultations_json:
+            for temporal in item["times"]:
+                consultation = Consultation(item["teacher"], item["room"], item["email"], item["department"],
+                                            item["times"], temporal["weekday"], temporal["time"])
+                consultations.append(consultation.get_str())
+        if consultations:
+            return consultations
+        return None
+
+    def get_consultations_by_teacher(self, teacher):
+        r = requests.get(self.api_url + 'consultations', verify=False)
+        consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
+        consultations = []
+        for item in consultations_json:
+            for temporal in item["times"]:
+                consultation = Consultation(item["teacher"], item["room"], item["email"], item["department"],
+                                            item["times"], temporal["weekday"], temporal["time"])
+                if teacher in consultation.teacher:
+                    consultations.append(consultation.get_str())
+        if consultations:
+            return consultations
+        return None
+
+    def get_consultations_by_department(self, department):
+        r = requests.get(self.api_url + 'consultations?department='+department, verify=False)
+        consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
+        consultations = []
+        for item in consultations_json:
+            for temporal in item["times"]:
+                consultation = Consultation(item["teacher"], item["room"], item["email"], item["department"],
+                                            item["times"], temporal["weekday"], temporal["time"])
+                consultations.append(consultation.get_str())
+        if consultations:
+            return consultations
+        return None
+
+    def search_teachers(self):
+        r = requests.get(self.api_url + 'consultations', verify=False)
+        consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
+        consultations = []
+        for item in consultations_json:
+            for temporal in item["times"]:
+                consultation = Consultation(item["teacher"], item["room"], item["email"], item["department"],
+                                            item["times"], temporal["weekday"], temporal["time"])
+                consultations.append(consultation.get_teacher())
+        if consultations:
+            return consultations
+        return None
+
+    def search_departments(self):
+        r = requests.get(self.api_url + 'consultations', verify=False)
+        consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
+        consultations = []
+        for item in consultations_json:
+            for temporal in item["times"]:
+                consultation = Consultation(item["teacher"], item["room"], item["email"], item["department"],
+                                            item["times"], temporal["weekday"], temporal["time"])
+                consultations.append(consultation.get_department())
+        if consultations:
+            return consultations
+        return None
