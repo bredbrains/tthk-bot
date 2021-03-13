@@ -5,6 +5,7 @@ import vkbottle.bot as bot
 from vkbottle.bot import Message
 
 from api import API
+from models.group import Group
 from userskeyboard import UsersKeyboard
 
 
@@ -77,25 +78,25 @@ class Bot:
             await message.answer('Выберите аббревиатуру Вашей группы',
                                  keyboard=self.keyboard.get_group_professions_keyboard())
 
-        @self.bot.on.private_message(text=self.keyboard.get_abbreviation())
+        @self.bot.on.private_message(text=Group.get_professions())
         async def any_message(message: Message):
             if self.group_choosing:
                 await message.answer('Выберите градацию Вашей группы',
                                      keyboard=self.keyboard.get_group_graduation_keyboard())
 
-        @self.bot.on.private_message(text=self.keyboard.get_graduation())
+        @self.bot.on.private_message(text=Group.get_graduations())
         async def any_message(message: Message):
             if self.group_choosing:
                 await message.answer('Выберите год Вашей группы',
                                      keyboard=self.keyboard.get_group_years_keyboard())
 
-        @self.bot.on.private_message(text=self.keyboard.get_year())
+        @self.bot.on.private_message(text=Group.get_years())
         async def any_message(message: Message):
             if self.group_choosing:
                 await message.answer('Выберите номер Вашей группы',
                                      keyboard=self.keyboard.get_group_number_keyboard())
 
-        @self.bot.on.private_message(text=self.keyboard.get_number())
+        @self.bot.on.private_message(text=Group.get_numbers())
         async def any_message(message: Message):
             if self.group_choosing:
                 await message.answer('Ваша группа',
