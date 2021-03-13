@@ -63,7 +63,7 @@ class API:
         return None
 
     def get_consultations_by_department(self, department):
-        r = requests.get(self.api_url + 'consultations?department='+department, verify=False)
+        r = requests.get(self.api_url + 'consultations?department=' + department, verify=False)
         consultations_json = eval(json.dumps(r.json()).replace("null", "None"))["data"]
         consultations = []
         for item in consultations_json:
