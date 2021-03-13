@@ -1,16 +1,18 @@
+import asyncio
+from typing import Optional
+
 import vkbottle.bot as bot
 from vkbottle.bot import Message
-import asyncio
-from keyboards import Keyboards
+
 from api import API
-from typing import Optional
+from userskeyboard import UsersKeyboard
 
 
 class Bot:
     def __init__(self, token):
         self.bot = bot.Bot(token)
         self.api = API()
-        self.keyboard = Keyboards()
+        self.keyboard = UsersKeyboard()
 
         self.group_choosing = False
 
@@ -73,7 +75,7 @@ class Bot:
         async def any_message(message: Message):
             self.group_choosing = True
             await message.answer('Выберите аббревиатуру Вашей группы',
-                                 keyboard=self.keyboard.get_group_abbreviation_keyboard())
+                                 keyboard=self.keyboard.get_group_professions_keyboard())
 
         @self.bot.on.private_message(text=self.keyboard.get_abbreviation())
         async def any_message(message: Message):
