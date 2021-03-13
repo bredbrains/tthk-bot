@@ -4,9 +4,9 @@ from enum import Enum
 
 
 class GroupData(Enum):
-    Professions = "professions"
-    Graduations = "graduations"
-    Numbers = "numbers"
+    Professions = 1
+    Graduations = 2
+    Numbers = 3
 
 
 class Group:
@@ -31,7 +31,12 @@ class Group:
     @staticmethod
     def select_from_file(selection: GroupData):
         data = Group.read_file()
-        return data[str(selection)]
+        selections = {
+            GroupData.Professions: "professions",
+            GroupData.Graduations: "graduations",
+            GroupData.Numbers: "numbers"
+        }
+        return data[selections[selection]]
 
     @staticmethod
     def get_professions():
