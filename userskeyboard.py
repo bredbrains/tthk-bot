@@ -33,6 +33,12 @@ class UsersKeyboard:
             .get_json()
         return self.keyboard
 
+    def get_consultation_teacher_list(self):
+        self.keyboard = Keyboard(one_time=False) \
+            .add(Text("Вернуться"), color=KeyboardButtonColor.NEGATIVE) \
+            .get_json()
+        return self.keyboard
+
     def get_group(self):
         self.keyboard = Keyboard(one_time=False) \
             .add(Text("Моя группа"), color=KeyboardButtonColor.PRIMARY) \
@@ -56,7 +62,7 @@ class UsersKeyboard:
                 self.row_empty = True
         if not self.row_empty:
             self.keyboard.row()
-        self.keyboard.add(Text("Назад"), color=KeyboardButtonColor.NEGATIVE)
+        self.keyboard.add(Text("Вернуться"), color=KeyboardButtonColor.NEGATIVE)
         return self.keyboard.get_json()
 
     def get_group_graduation(self):
@@ -71,7 +77,7 @@ class UsersKeyboard:
                 self.row_empty = True
         if not self.row_empty:
             self.keyboard.row()
-        self.keyboard.add(Text("Назад"), color=KeyboardButtonColor.NEGATIVE)
+        self.keyboard.add(Text("Вернуться"), color=KeyboardButtonColor.NEGATIVE)
         return self.keyboard.get_json()
 
     def get_group_years(self):
@@ -86,7 +92,7 @@ class UsersKeyboard:
                 self.row_empty = True
         if not self.row_empty:
             self.keyboard.row()
-        self.keyboard.add(Text("Назад"), color=KeyboardButtonColor.NEGATIVE)
+        self.keyboard.add(Text("Вернуться"), color=KeyboardButtonColor.NEGATIVE)
         return self.keyboard.get_json()
 
     def get_group_number(self):
@@ -101,5 +107,5 @@ class UsersKeyboard:
                 self.row_empty = True
         if not self.row_empty:
             self.keyboard.row()
-        self.keyboard.add(Text("Назад"), color=KeyboardButtonColor.NEGATIVE)
+        self.keyboard.add(Text("Вернуться"), color=KeyboardButtonColor.NEGATIVE)
         return self.keyboard.get_json()
