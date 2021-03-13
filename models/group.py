@@ -31,7 +31,7 @@ class Group:
     @staticmethod
     def select_from_file(selection: GroupData):
         data = Group.read_file()
-        return data[selection]
+        return data[str(selection)]
 
     @staticmethod
     def get_professions():
