@@ -2,7 +2,8 @@ from vkbottle import Keyboard, KeyboardButtonColor, Text
 from datetime import datetime
 from api import API
 
-class Keyboards:
+
+class Keyboard:
 
     def __init__(self):
         self.keyboard = None
