@@ -25,6 +25,7 @@ class Group:
     def read_file():
         file = open("assets/group.json", "r", encoding="utf-8")
         data = json.load(file)
+        file.close()
         return data
 
     @staticmethod
