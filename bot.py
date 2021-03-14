@@ -109,7 +109,7 @@ class Bot:
                 if message.text != "Нету":
                     self.temp_group += "-"+message.text
                 self.group = self.temp_group
-                await message.answer('Ваша группа : '+self.group,
+                await message.answer('Ваша группа: '+self.group,
                                      keyboard=self.keyboard.get_group())
 
         @self.bot.on.private_message(text=["Консультации"])
