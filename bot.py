@@ -27,7 +27,6 @@ class Bot:
         async def any_message(message: Message):
             group = self.group
             changes = None
-            await message.answer("Подождите пожалуйста пару секунд...")
             if group is not None:
                 try:
                     changes = self.api.get_changes_by_group(group)
@@ -53,7 +52,6 @@ class Bot:
         @self.bot.on.private_message(text=["К"])
         async def any_message(message: Message, teacher: Optional[str] = None):
             consultation = None
-            await message.answer("Подождите пожалуйста 5 секунд...")
             if teacher is not None:
                 try:
                     consultation = self.api.get_consultations_by_teacher(teacher)
