@@ -8,7 +8,7 @@ from models.consultation import Consultation
 
 class API:
     def __init__(self):
-        self.api_url = "https://bredbrains.tech/api/"
+        self.api_url = "https://api.bredbrains.tech/"
 
     def get_changes(self):
         r = requests.get(self.api_url + 'changes', verify=False)
