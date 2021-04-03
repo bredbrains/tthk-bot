@@ -1,6 +1,6 @@
 # Tallinna Tööstushariduskeskus Bot
 
-Tallinna Tööstushariduskeskus at VK social, that gives an ability to quickly get changes, consultations and other
+Tallinna Tööstushariduskeskus Bot at VK social, that gives an ability to quickly get changes, consultations and other
 studies releated information about this.
 
 ## How to run?

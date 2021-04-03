@@ -4,9 +4,9 @@ from enum import Enum
 
 
 class GroupData(Enum):
-    Professions = "professions"
-    Graduations = "graduations"
-    Numbers = "numbers"
+    Professions = 1
+    Graduations = 2
+    Numbers = 3
 
 
 class Group:
@@ -25,12 +25,18 @@ class Group:
     def read_file():
         file = open("assets/group.json", "r", encoding="utf-8")
         data = json.load(file)
+        file.close()
         return data
 
     @staticmethod
     def select_from_file(selection: GroupData):
         data = Group.read_file()
-        return data[selection]
+        selections = {
+            GroupData.Professions: "professions",
+            GroupData.Graduations: "graduations",
+            GroupData.Numbers: "numbers"
+        }
+        return data[selections[selection]]
 
     @staticmethod
     def get_professions():
