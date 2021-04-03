@@ -58,3 +58,19 @@ class UserRequest:
             self.database.connection.commit()
         except:
             self.add_user(user)
+
+    def update_group(self, user: User):
+        try:
+            self.cursor.execute(
+                f"UPDATE users SET school_group = {user.group} WHERE vkid = {user.vkid}")
+            self.database.connection.commit()
+        except:
+            self.add_user(user)
+
+    def update_sender_status(self, user: User):
+        try:
+            self.cursor.execute(
+                f"UPDATE users SET sender_status = {user.sender_status} WHERE vkid = {user.vkid}")
+            self.database.connection.commit()
+        except:
+            self.add_user(user)
