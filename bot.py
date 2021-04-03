@@ -12,13 +12,11 @@ class Bot:
         self.bot = bot.Bot(token)
         self.api = API()
         self.keyboard = UsersKeyboard()
-        self.groups = self.api.get_groups()
-        self.teachers = self.api.get_teachers()
+        self.groups = await self.api.get_groups()
+        self.teachers = await self.api.get_teachers()
 
         self.group = None
         self.page = 0
-
-        print("Готово")
 
         @self.bot.on.private_message(text=["Изменения в расписании"])
         async def wrapper(message: Message):
