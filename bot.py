@@ -27,7 +27,7 @@ class Bot:
                                      keyboard=self.keyboard.get_separated_keyboard_by_array(self.groups, self.page))
             else:
                 await message.answer(self.get_changes_by_group(self.group),
-                                 keyboard=self.keyboard.get_main())
+                                     keyboard=self.keyboard.get_main())
 
         @self.bot.on.private_message(text=self.groups)
         async def wrapper(message: Message):
