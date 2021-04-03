@@ -19,8 +19,6 @@ class Bot:
         self.page = 0
         self.state = None
 
-        print("Готово")
-
         @self.bot.on.private_message(text=["Изменения в расписании"])
         async def wrapper(message: Message):
             self.state = "group"
