@@ -5,10 +5,13 @@ import requests
 from models.change import Change
 from models.consultation import Consultation
 
+import os
+
+api_url = os.environ["api"]
 
 class API:
     def __init__(self):
-        self.api_url = "https://api.bredbrains.tech/"
+        self.api_url = api_url
 
     def get_changes_by_group(self, group):
         r = requests.get(self.api_url + 'changes')
