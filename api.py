@@ -7,10 +7,11 @@ import os
 from models.change import Change
 from models.consultation import Consultation
 
+api_url = os.environ["api"]
 
 class API:
     def __init__(self):
-        self.api_url = os.environ["api"]
+        self.api_url = api_url
 
     def get_changes(self):
         r = requests.get(self.api_url + 'changes')
