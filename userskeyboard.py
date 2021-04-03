@@ -7,7 +7,7 @@ class UsersKeyboard:
     def __init__(self):
         self.keyboard = None
         self.api = API()
-        self.buttons_limiter = 4
+        self.buttons_limiter = 24
         self.last_row = False
 
     def get_main(self):
@@ -21,14 +21,19 @@ class UsersKeyboard:
     def get_separated_keyboard_by_array(self, array, page):
         self.keyboard = Keyboard(one_time=False)
         tick = 0
-        for el in array[page * self.buttons_limiter:self.buttons_limiter * (page + 1)]:
+        min_count = page * self.buttons_limiter
+        max_count = (page + 1) * self.buttons_limiter
+        for el in array[min_count:max_count]:
             tick += 1
             self.keyboard.add(Text(el), color=KeyboardButtonColor.PRIMARY)
-            if tick % 4 == 0:
+            self.last_row = False
+            if tick % 3 == 0:
                 self.keyboard.row()
-
-        self.keyboard.add(Text("<"), color=KeyboardButtonColor.SECONDARY)
-        self.keyboard.add(Text(">"), color=KeyboardButtonColor.SECONDARY)
+                self.last_row = True
+        if not self.last_row:
+            self.keyboard.row()
+        self.keyboard.add(Text("⇦"), color=KeyboardButtonColor.SECONDARY)
+        self.keyboard.add(Text("⇨"), color=KeyboardButtonColor.SECONDARY)
         self.keyboard.row()
         self.keyboard.add(Text("Назад"), color=KeyboardButtonColor.NEGATIVE)
         self.keyboard.get_json()
