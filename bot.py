@@ -12,8 +12,8 @@ class Bot:
         self.bot = bot.Bot(token)
         self.api = API()
         self.keyboard = UsersKeyboard()
-        self.groups = await self.api.get_groups()
-        self.teachers = await self.api.get_teachers()
+        self.groups = self.api.get_groups()
+        self.teachers = self.api.get_teachers()
 
         self.group = None
         self.page = 0
