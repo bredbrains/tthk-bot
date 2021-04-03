@@ -1,13 +1,13 @@
 import json
+import os
 
 import requests
-
-import os
 
 from models.change import Change
 from models.consultation import Consultation
 
 api_url = os.environ["api"]
+
 
 class API:
     def __init__(self):
