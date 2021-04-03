@@ -17,9 +17,11 @@ class Bot:
 
         self.group = None
         self.page = 0
+        self.state = None
 
         @self.bot.on.private_message(text=["Изменения в расписании"])
         async def wrapper(message: Message):
+            self.state = "group"
             await message.answer("Выберите группу",
                                  keyboard=self.keyboard.get_separated_keyboard_by_array(self.groups, self.page))
 
@@ -48,9 +50,13 @@ class Bot:
         @self.bot.on.private_message(text=["<", ">"])
         async def wrapper(message: Message):
             if message.text == "<":
-                self.page -= 1
+                if self.page > 0:
+                    self.page -= 1
             elif message.text == ">":
                 self.page += 1
+            if self.state == "group":
+                await message.answer("Выберите группу",
+                                     keyboard=self.keyboard.get_separated_keyboard_by_array(self.groups, self.page))
 
         @self.bot.on.private_message(text=["Назад"])
         async def wrapper(message: Message):
