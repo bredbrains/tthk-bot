@@ -15,16 +15,28 @@ class Bot:
         self.groups = self.api.get_groups()
         self.teachers = self.api.get_teachers()
 
+        self.group = None
+        self.page = 0
+
         print("Готово")
+
+        @self.bot.on.private_message(text=["Изменения в расписании"])
+        async def wrapper(message: Message):
+            await message.answer("Выберите группу",
+                                 keyboard=self.keyboard.get_separated_keyboard_by_array(self.groups, self.page))
 
         @self.bot.on.private_message(text=self.groups)
         async def wrapper(message: Message):
             group = message.text
-            changes = self.api.get_changes_by_group(group)
-            if changes is not None:
-                await message.answer(changes)
+            if self.group is not None:
+                changes = self.api.get_changes_by_group(group)
+                if changes is not None:
+                    await message.answer(changes)
+                else:
+                    await message.answer("Нет изменений в расписании")
             else:
-                await message.answer("Нет изменений в расписании")
+                self.group = group
+                await message.answer("Ваша группа " + self.group)
 
         @self.bot.on.private_message(text=self.teachers)
         async def wrapper(message: Message):
@@ -33,7 +45,18 @@ class Bot:
             if consultations is not None:
                 await message.answer(consultations)
             else:
-                await message.answer("Нет изменений в расписании")
+                await message.answer("У данного учителя нет консультации")
+
+        @self.bot.on.private_message(text=["<", ">"])
+        async def wrapper(message: Message):
+            if message.text == "<":
+                self.page -= 1
+            elif message.text == ">":
+                self.page += 1
+
+        @self.bot.on.private_message(text=["Назад"])
+        async def wrapper(message: Message):
+            await message.answer('Выберите команду', keyboard=self.keyboard.get_main())
 
         @self.bot.on.private_message(text=["Начать",
                                            "Start"])
