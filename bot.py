@@ -1,5 +1,4 @@
 import asyncio
-from typing import Optional
 
 import vkbottle.bot as bot
 from vkbottle.bot import Message
