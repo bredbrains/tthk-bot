@@ -43,7 +43,7 @@ docker run bredbrains/tthk-bot
 
 ### CapRover
 
-Just create new application at CapRover and upload directly your fork or using built Docker image.
+Just create new application at CapRover and upload directly your fork or use built Docker image.
 
 ## Dependencies
 
