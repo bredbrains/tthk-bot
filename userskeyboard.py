@@ -15,6 +15,8 @@ class UsersKeyboard:
             .add(Text("Изменения в расписании"), color=KeyboardButtonColor.POSITIVE) \
             .row() \
             .add(Text("Консультации"), color=KeyboardButtonColor.POSITIVE) \
+            .row() \
+            .add(Text("Сменить группу"), color=KeyboardButtonColor.POSITIVE) \
             .get_json()
         return self.keyboard
 

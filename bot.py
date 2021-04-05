@@ -19,15 +19,27 @@ class Bot:
         self.page = 0
         self.state = None
 
+        @self.bot.on.private_message(text=["Сменить группу"])
+        async def wrapper(message: Message):
+            self.group = None
+            result = self.get_group()
+            await message.answer(result[0], keyboard=result[1])
+
         @self.bot.on.private_message(text=["Изменения в расписании"])
         async def wrapper(message: Message):
-            self.state = "group"
-            if self.group is None:
-                await message.answer("Выберите группу",
-                                     keyboard=self.keyboard.get_separated_keyboard_by_array(self.groups, self.page))
-            else:
-                await message.answer(self.get_changes_by_group(self.group),
+            result = self.get_group()
+            await message.answer(result[0], keyboard=result[1])
+
+        @self.bot.on.private_message(text=self.groups)
+        async def wrapper(message: Message):
+            await message.answer(self.get_changes_by_group(message.text),
                                  keyboard=self.keyboard.get_main())
+
+        @self.bot.on.private_message(text=["Консультации"])
+        async def wrapper(message: Message):
+            self.state = "teacher"
+            await message.answer("Выберите учителя",
+                                 keyboard=self.keyboard.get_separated_keyboard_by_array(self.teachers, self.page))
 
         @self.bot.on.private_message(text=self.groups)
         async def wrapper(message: Message):
@@ -39,9 +51,9 @@ class Bot:
             teacher = message.text
             consultations = self.api.get_consultations_by_teacher(teacher)
             if consultations is not None:
-                await message.answer(consultations)
+                await message.answer(consultations, keyboard=self.keyboard.get_main())
             else:
-                await message.answer("У данного учителя нет консультации")
+                await message.answer("У данного учителя нет консультации", keyboard=self.keyboard.get_main())
 
         @self.bot.on.private_message(text=["⇦", "⇨"])
         async def wrapper(message: Message):
@@ -52,8 +64,11 @@ class Bot:
                 if self.page < len(self.groups) // 24:
                     self.page += 1
             if self.state == "group":
-                await message.answer("Выберите группу",
-                                     keyboard=self.keyboard.get_separated_keyboard_by_array(self.groups, self.page))
+                result = self.get_group()
+                await message.answer(result[0], keyboard=result[1])
+            elif self.state == "teacher":
+                await message.answer("Выберите учителя",
+                                     keyboard=self.keyboard.get_separated_keyboard_by_array(self.teachers, self.page))
 
         @self.bot.on.private_message(text=["Назад"])
         async def wrapper(message: Message):
@@ -65,6 +80,13 @@ class Bot:
             await message.answer('Ваша клавиатура', keyboard=self.keyboard.get_main())
 
         asyncio.run(self.bot.run_polling())
+
+    def get_group(self):
+        self.state = "group"
+        if self.group is None:
+            return "Выберите группу", self.keyboard.get_separated_keyboard_by_array(self.groups, self.page)
+        else:
+            return self.get_changes_by_group(self.group), self.keyboard.get_main()
 
     def get_changes_by_group(self, group):
         if self.group is not None:
