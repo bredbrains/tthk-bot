@@ -41,6 +41,10 @@ docker run bredbrains/tthk-bot
 
 *Use **-d** operator to launch container in detached mode*
 
+### CapRover
+
+Just create new application at CapRover and upload directly your fork or using built docker image.
+
 ## Dependencies
 
 * Python 3.9
